@@ -1,8 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from './Card';
 import {nanoid} from 'nanoid';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+//import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+    addButton: {
+        //
+    }
+}));
 
 function App() {
+    const classes = useStyles();
+
     const cardsDefault = [
         {
             "id": nanoid(),
@@ -18,6 +31,10 @@ function App() {
         }]
 
     const [cards, setCards] = useState(cardsDefault);
+
+    useEffect(() => {
+        //
+    });
 
     const updateCardField = (index, key, value) => {
         const cardsCopy = cards.slice();
@@ -39,16 +56,20 @@ function App() {
     }
 
     const addButtonHandler = () => {
-        addCard("დისკრეტული მათემატიკა", "6", "ჭ");
+        addCard("", "", "");
     }
 
     const removeButtonHandler = (id) => {
         removeCard(id)
     }
 
+    // const scrollToBottom = () => {
+    //     this.end.scrollIntoView({ behavior: "smooth" });
+    // }
+
     return (
         <div className="app">
-            <div className="cards">
+            <Box className="cards" m="5%" textAlign="center">
                 {cards.map((value, index) => {
                     return (
                         <Card key={value.id}
@@ -61,8 +82,9 @@ function App() {
                               removeButtonHandler={() => removeButtonHandler(value.id)}/>
                     );
                 })}
-            </div>
-            <button className="add-button" onClick={() => addButtonHandler()}>Add card</button>
+                <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
+                        startIcon={<AddIcon/>}>Add card</Button>
+            </Box>
         </div>
     );
 }
