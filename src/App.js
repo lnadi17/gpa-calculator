@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     addButton: {
         //
     }
+
 }));
 
 function App() {
@@ -31,10 +32,12 @@ function App() {
         }]
 
     const [cards, setCards] = useState(cardsDefault);
+    const [cardAdded, setCardAdded] = useState(false);
 
     useEffect(() => {
-        //
-    });
+        scrollToBottom();
+        setCardAdded(false);
+    }, [cardAdded]);
 
     const updateCardField = (index, key, value) => {
         const cardsCopy = cards.slice();
@@ -57,15 +60,19 @@ function App() {
 
     const addButtonHandler = () => {
         addCard("", "", "");
+        setCardAdded(true);
     }
 
     const removeButtonHandler = (id) => {
-        removeCard(id)
+        removeCard(id);
     }
 
-    // const scrollToBottom = () => {
-    //     this.end.scrollIntoView({ behavior: "smooth" });
-    // }
+    const scrollToBottom = (behavior = 'smooth') => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: behavior
+        })
+    }
 
     return (
         <div className="app">
