@@ -22,17 +22,17 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.secondary.main,
             width: "100%"
         },
-        marginTop: 10,
-        marginBottom: 10,
         margin: "auto",
         textAlign: "left",
         maxWidth: "400px"
     },
     cardHeader: {
-        padding: 0
+        padding: 0,
+        marginBottom: "-12px"
     },
     cardContent: {
         padding: "8px",
+        paddingTop: 0,
         "&:last-child": {
             paddingBottom: "8px"
         }
@@ -47,31 +47,27 @@ function Card(props) {
     }
 
     return (
-        <MaterialCard className={classes.root} elevation={5}>
+        <MaterialCard className={classes.root} elevation={5} style={props.style}>
             <CardHeader
                 className={classes.cardHeader}
                 action={<IconButton variant="contained"
-                                    className="remove-button"
                                     onClick={() => props.removeButtonHandler()}>
                     <DeleteIcon/>
                 </IconButton>
                 }
             />
             <MaterialCardContent className={classes.cardContent}>
-                <EditableText className="subject-name"
-                              label="საგნის დასახელება"
+                <EditableText label="საგნის დასახელება"
                               text={props.subjectName}
                               changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
                 {/*<EditableText className="subject-mark"*/}
                 {/*              label="მიღებული ქულა"*/}
                 {/*              text={props.subjectMark}*/}
                 {/*              changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>*/}
-                <SelectableText className="subject-mark"
-                              label="მიღებული ქულა"
-                              text={props.subjectMark}
-                              changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
-                <EditableText className="subject-credits"
-                              label="კრედიტების რაოდენობა"
+                <SelectableText label="მიღებული ქულა"
+                                text={props.subjectMark}
+                                changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
+                <EditableText label="კრედიტების რაოდენობა"
                               text={props.subjectCredits}
                               changeHandler={(e) => changeHandler(e, props.setSubjectCredits)}/>
             </MaterialCardContent>
