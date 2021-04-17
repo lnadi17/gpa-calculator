@@ -22,8 +22,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.secondary.main,
             width: "100%"
         },
-        marginTop: 10,
-        marginBottom: 10,
         margin: "auto",
         textAlign: "left",
         maxWidth: "400px"
@@ -47,7 +45,7 @@ function Card(props) {
     }
 
     return (
-        <MaterialCard className={classes.root} elevation={5} {...props}>
+        <MaterialCard className={classes.root} elevation={5} style={props.style}>
             <CardHeader
                 className={classes.cardHeader}
                 action={<IconButton variant="contained"

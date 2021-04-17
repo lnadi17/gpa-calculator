@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Card from './Card';
 import {nanoid} from 'nanoid';
 import Button from '@material-ui/core/Button';
@@ -42,17 +42,14 @@ function App() {
     // region Animation
     const AnimatedCard = animated(Card);
     const cardsTransition = useTransition(cards, {
-        leave: {opacity: 0},
-        enter: {opacity: 1},
-        from: {opacity: 0},
+        leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
+        enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
+        from: {opacity: 0, maxHeight: '0px', marginBottom: 10, transform: 'scaleY(0)'},
+        onChange: () => {scrollToBottom('auto')},
+        onRest: () => {setCardAdded(false)},
         keys: card => card.id
     });
     // endregion
-
-    useEffect(() => {
-        scrollToBottom();
-        setCardAdded(false);
-    }, [cardAdded]);
 
     // region Helper Functions
     const updateCardField = (index, key, value) => {
@@ -84,6 +81,9 @@ function App() {
     }
 
     const scrollToBottom = (behavior = 'smooth') => {
+        if (!cardAdded) {
+            return;
+        }
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: behavior
