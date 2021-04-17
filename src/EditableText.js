@@ -18,6 +18,7 @@ function EditableText(props) {
         variant="outlined"
         label={props.label}
         value={props.text}
+        spellCheck="false"
         onKeyPress={keyPressHandler}
         onChange={(e) => props.changeHandler(e)}
     />;

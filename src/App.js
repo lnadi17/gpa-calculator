@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     addButton: {
         //
     }
-
 }));
 
 function App() {
@@ -101,22 +100,6 @@ function App() {
                                  setSubjectMark={newValue => updateCardField(index, "subjectMark", newValue)}
                                  removeButtonHandler={() => removeButtonHandler(card.id)}/>
         });
-
-        // return cardsTransition((values, card, state, index) => {
-        //     return <animated.div style={values}
-        //     >{card.subjectName} {card.subjectCredits} {index}</animated.div>
-        // })
-
-        // return cards.map((value, index) => {
-        //     return <Card key={value.id}
-        //                  subjectName={value.subjectName}
-        //                  setSubjectName={(newValue) => updateCardField(index, "subjectName", newValue)}
-        //                  subjectCredits={value.subjectCredits}
-        //                  setSubjectCredits={(newValue) => updateCardField(index, "subjectCredits", newValue)}
-        //                  subjectMark={value.subjectMark}
-        //                  setSubjectMark={(newValue) => updateCardField(index, "subjectMark", newValue)}
-        //                  removeButtonHandler={() => removeButtonHandler(value.id)}/>
-        // });
     }
     // endregion
 
