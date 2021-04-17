@@ -47,7 +47,7 @@ function Card(props) {
     }
 
     return (
-        <MaterialCard className={classes.root} elevation={5}>
+        <MaterialCard className={classes.root} elevation={5} {...props}>
             <CardHeader
                 className={classes.cardHeader}
                 action={<IconButton variant="contained"
