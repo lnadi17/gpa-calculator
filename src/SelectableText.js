@@ -20,6 +20,7 @@ function EditableText(props) {
     };
 
     return <TextField
+        className={props.className}
         fullWidth
         multiline
         margin="normal"
