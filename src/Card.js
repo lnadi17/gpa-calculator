@@ -39,8 +39,10 @@ const useStyles = makeStyles(theme => ({
 function Card(props) {
     const classes = useStyles();
 
-    const changeHandler = (event, stateChanger) => {
-        stateChanger(event.target.value);
+    const changeHandler = (event, stateChanger, digitsOnly) => {
+        if (!digitsOnly || /^\d+$/.test(event.target.value) || event.target.value === '') {
+            stateChanger(event.target.value);
+        }
     }
 
     // Hack to animate margin size
@@ -75,7 +77,7 @@ function Card(props) {
                                     changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
                     <EditableText label="კრედიტების რაოდენობა"
                                   text={props.subjectCredits}
-                                  changeHandler={(e) => changeHandler(e, props.setSubjectCredits)}/>
+                                  changeHandler={(e) => changeHandler(e, props.setSubjectCredits, true)}/>
                 </MaterialCardContent>
             </MaterialCard>
         </div>
