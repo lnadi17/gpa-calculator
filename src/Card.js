@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
             width: '50%'
         }
     },
-    name: {
-    },
+    // name: {
+    // },
     mark: {
         [theme.breakpoints.up('md')]: {
             width: '50%',
@@ -92,7 +92,7 @@ function Card(props) {
                 <MaterialCardContent className={classes.cardContent}>
                     <EditableText label="საგნის დასახელება"
                                   text={props.subjectName}
-                                  className={classes.name}
+                                  // className={classes.name}
                                   changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
                     {/*<EditableText className="subject-mark"*/}
                     {/*              label="მიღებული ქულა"*/}

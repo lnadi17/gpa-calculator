@@ -11,7 +11,7 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 const useStyles = makeStyles(theme => ({
     addButton: {
         //
-    }
+    },
 }));
 
 function App() {
