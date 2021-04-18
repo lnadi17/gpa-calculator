@@ -1,14 +1,11 @@
-// import React, {useState} from 'react';
 import EditableText from "./EditableText";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-//import Container from '@material-ui/core/Container';
 import MaterialCard from '@material-ui/core/Card';
 import MaterialCardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import {makeStyles} from '@material-ui/core/styles';
 import SelectableText from "./SelectableText";
-//import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
     root: {

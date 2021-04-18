@@ -3,7 +3,6 @@ import Card from './Card';
 import {nanoid} from 'nanoid';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-//import Container from '@material-ui/core/Container';
 import {useTransition, animated} from 'react-spring';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from "@material-ui/core/styles";
@@ -44,6 +43,7 @@ function App() {
         leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
         enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
         from: {opacity: 0, maxHeight: '0px', marginBottom: 10, transform: 'scaleY(0)'},
+
         onChange: () => {scrollToBottom('auto')},
         onRest: () => {setCardAdded(false)},
         keys: card => card.id
@@ -86,7 +86,7 @@ function App() {
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: behavior
-        })
+        });
     }
 
     const getCards = () => {
