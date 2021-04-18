@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {useTransition, animated} from 'react-spring';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from "@material-ui/core/styles";
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
 const useStyles = makeStyles(theme => ({
     addButton: {
@@ -42,10 +43,14 @@ function App() {
     const cardsTransition = useTransition(cards, {
         leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
         enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
-        from: {opacity: 0, maxHeight: '0px', marginBottom: 10, transform: 'scaleY(0)'},
+        from: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
 
-        onChange: () => {scrollToBottom('auto')},
-        onRest: () => {setCardAdded(false)},
+        onChange: () => {
+            scrollToBottom('auto')
+        },
+        onRest: () => {
+            setCardAdded(false)
+        },
         keys: card => card.id
     });
     // endregion
@@ -91,22 +96,64 @@ function App() {
 
     const getCards = () => {
         return cardsTransition((values, card, state, index) => {
-            return <AnimatedCard style={values}
-                                 subjectName={card.subjectName}
-                                 setSubjectName={newValue => updateCardField(index, "subjectName", newValue)}
-                                 subjectCredits={card.subjectCredits}
-                                 setSubjectCredits={newValue => updateCardField(index, "subjectCredits", newValue)}
-                                 subjectMark={card.subjectMark}
-                                 setSubjectMark={newValue => updateCardField(index, "subjectMark", newValue)}
-                                 removeButtonHandler={() => removeButtonHandler(card.id)}/>
+            return (
+                <Draggable key={card.id} draggableId={card.id} index={index}>
+                    {(provided, snapshot) => (
+                        <AnimatedCard style={values}
+                                      provided={provided}
+                                      subjectName={card.subjectName}
+                                      setSubjectName={newValue => updateCardField(index, "subjectName", newValue)}
+                                      subjectCredits={card.subjectCredits}
+                                      setSubjectCredits={newValue => updateCardField(index, "subjectCredits", newValue)}
+                                      subjectMark={card.subjectMark}
+                                      setSubjectMark={newValue => updateCardField(index, "subjectMark", newValue)}
+                                      removeButtonHandler={() => removeButtonHandler(card.id)}/>
+
+                    )}
+                </Draggable>
+            )
         });
     }
+
+    const onDragEndHandler = (result) => {
+        // Dropped outside the list
+        if (!result.destination) {
+            return;
+        }
+
+        const newCards = reorder(
+            cards,
+            result.source.index,
+            result.destination.index
+        );
+
+        setCards(newCards);
+    }
+
+    // A little function to help us with reordering the result
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
     // endregion
 
     return (
         <div className="app">
             <Box className="cards" m="5%" textAlign="center">
-                {getCards()}
+                <DragDropContext onDragEnd={onDragEndHandler}>
+                    <Droppable droppableId="droppable">
+                        {(provided, snapshot) => (
+                            <div {...provided.droppableProps}
+                                 ref={provided.innerRef}
+                            >
+                                {getCards()}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
                 <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
                         startIcon={<AddIcon/>}>Add card</Button>
             </Box>

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: theme.palette.secondary.main,
             width: "100%"
         },
-        margin: "auto",
+        margin: 'auto',
         textAlign: "left",
         maxWidth: "400px"
     },
@@ -43,32 +43,38 @@ function Card(props) {
         stateChanger(event.target.value);
     }
 
+    const marginStyle = (({marginBottom}) => ({marginBottom}))(props.style);
+
     return (
-        <MaterialCard className={classes.root} elevation={5} style={props.style}>
-            <CardHeader
-                className={classes.cardHeader}
-                action={<IconButton variant="contained"
-                                    onClick={() => props.removeButtonHandler()}>
-                    <DeleteIcon/>
-                </IconButton>
-                }
-            />
-            <MaterialCardContent className={classes.cardContent}>
-                <EditableText label="საგნის დასახელება"
-                              text={props.subjectName}
-                              changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
-                {/*<EditableText className="subject-mark"*/}
-                {/*              label="მიღებული ქულა"*/}
-                {/*              text={props.subjectMark}*/}
-                {/*              changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>*/}
-                <SelectableText label="მიღებული ქულა"
-                                text={props.subjectMark}
-                                changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
-                <EditableText label="კრედიტების რაოდენობა"
-                              text={props.subjectCredits}
-                              changeHandler={(e) => changeHandler(e, props.setSubjectCredits)}/>
-            </MaterialCardContent>
-        </MaterialCard>
+        <div {...props.provided.draggableProps} ref={props.provided.innerRef}
+             style={{...props.provided.draggableProps.style, ...marginStyle}}>
+            <MaterialCard className={classes.root} elevation={5} style={props.style}>
+                <CardHeader
+                    {...props.provided.dragHandleProps}
+                    className={classes.cardHeader}
+                    action={<IconButton variant="contained"
+                                        onClick={() => props.removeButtonHandler()}>
+                        <DeleteIcon/>
+                    </IconButton>
+                    }
+                />
+                <MaterialCardContent className={classes.cardContent}>
+                    <EditableText label="საგნის დასახელება"
+                                  text={props.subjectName}
+                                  changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
+                    {/*<EditableText className="subject-mark"*/}
+                    {/*              label="მიღებული ქულა"*/}
+                    {/*              text={props.subjectMark}*/}
+                    {/*              changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>*/}
+                    <SelectableText label="მიღებული ქულა"
+                                    text={props.subjectMark}
+                                    changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
+                    <EditableText label="კრედიტების რაოდენობა"
+                                  text={props.subjectCredits}
+                                  changeHandler={(e) => changeHandler(e, props.setSubjectCredits)}/>
+                </MaterialCardContent>
+            </MaterialCard>
+        </div>
     );
 }
 
