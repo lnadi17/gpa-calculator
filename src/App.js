@@ -7,6 +7,7 @@ import {useTransition, animated} from 'react-spring';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import Header from "./Header";
 
 const useStyles = makeStyles(theme => ({
     addButton: {
@@ -141,7 +142,8 @@ function App() {
 
     return (
         <div className="app">
-            <Box className="cards" m="5%" textAlign="center">
+            <Header/>
+            <Box className="cards" m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">
                         {(provided, snapshot) => (
