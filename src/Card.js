@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     cardHeader: {
         padding: 0,
-        marginBottom: "-12px"
+        marginBottom: "-12px",
     },
     cardContent: {
         padding: "8px",
@@ -43,7 +43,10 @@ function Card(props) {
         stateChanger(event.target.value);
     }
 
+    // Hack to animate margin size
     const marginStyle = (({marginBottom}) => ({marginBottom}))(props.style);
+    // Hack to make header unfocusable by pressing tab key
+    props.provided.dragHandleProps.tabIndex = -1;
 
     return (
         <div {...props.provided.draggableProps} ref={props.provided.innerRef}
@@ -52,10 +55,11 @@ function Card(props) {
                 <CardHeader
                     {...props.provided.dragHandleProps}
                     className={classes.cardHeader}
-                    action={<IconButton variant="contained"
-                                        onClick={() => props.removeButtonHandler()}>
-                        <DeleteIcon/>
-                    </IconButton>
+                    action={
+                        <IconButton variant="contained"
+                                    onClick={() => props.removeButtonHandler()}>
+                            <DeleteIcon/>
+                        </IconButton>
                     }
                 />
                 <MaterialCardContent className={classes.cardContent}>
