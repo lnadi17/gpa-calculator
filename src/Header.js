@@ -1,7 +1,9 @@
 import React from 'react';
-import {AppBar, fade, InputBase, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, fade, InputBase, TextField, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search"
+import {matchSorter} from 'match-sorter';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Header(props) {
     const classes = useStyles();
+
+    const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'}];
+    const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
+
     return (
         <div className={classes.root}>
             <AppBar>
@@ -73,13 +79,21 @@ function Header(props) {
                         <div className={classes.searchIcon}>
                             <SearchIcon/>
                         </div>
-                        <InputBase
-                            placeholder="საგნის მოძებნა…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{'aria-label': 'search'}}
+                        <Autocomplete
+                            renderInput={(params) =>
+                                <InputBase
+                                    ref={params.InputProps.ref}
+                                    inputProps={params.inputProps}
+                                    placeholder="საგნის მოძებნა…"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                />
+                            }
+                            options={options}
+                            getOptionLabel={option => option.name}
+                            filterOptions={filterOptions}
                         />
                     </div>
                 </Toolbar>
