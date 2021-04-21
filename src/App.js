@@ -45,7 +45,6 @@ function App() {
         leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
         enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
         from: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
-
         onChange: () => {
             scrollToBottom('auto')
         },
@@ -63,7 +62,16 @@ function App() {
         setCards(cardsCopy);
     }
 
-    const addCard = (subjectName, subjectCredits, subjectMark) => {
+    const addCard = (subjectName, subjectCredits, subjectMark, addOnTop = false) => {
+        if (addOnTop) {
+            setCards([{
+                id: nanoid(),
+                subjectName: subjectName,
+                subjectCredits: subjectCredits,
+                subjectMark: subjectMark
+            }, ...cards]);
+            return;
+        }
         setCards([...cards, {
             id: nanoid(),
             subjectName: subjectName,
@@ -109,11 +117,17 @@ function App() {
                                       subjectMark={card.subjectMark}
                                       setSubjectMark={newValue => updateCardField(index, "subjectMark", newValue)}
                                       removeButtonHandler={() => removeButtonHandler(card.id)}/>
-
                     )}
                 </Draggable>
             )
         });
+    }
+
+    const searchChangeHandler = (event, value, reason) => {
+        if (reason === 'clear') {
+            return;
+        }
+        addCard(value.name, 7, 'A', true);
     }
 
     const onDragEndHandler = (result) => {
@@ -142,7 +156,7 @@ function App() {
 
     return (
         <div className="app">
-            <Header/>
+            <Header searchChangeHandler={searchChangeHandler}/>
             <Box className="cards" m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">
@@ -157,7 +171,7 @@ function App() {
                     </Droppable>
                 </DragDropContext>
                 <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
-                        startIcon={<AddIcon/>}>Add card</Button>
+                        startIcon={<AddIcon/>}>საგნის დამატება</Button>
             </Box>
         </div>
     );
