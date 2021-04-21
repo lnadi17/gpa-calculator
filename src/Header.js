@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
             marginRight: theme.spacing(1)
         },
-        width: '80%'
     },
     search: {
         position: 'relative',
@@ -61,10 +60,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        width: '20ch',
+        width: '15ch',
         [theme.breakpoints.up('sm')]: {
-            width: '30ch',
-        }
+            width: '20ch',
+        },
+        [theme.breakpoints.up('md')]: {
+            width: '35ch',
+        },
     },
     paper: {
         backgroundColor: 'yellow',
