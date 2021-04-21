@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, fade, InputBase, TextField, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, fade, InputBase, Paper, TextField, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search"
 import {matchSorter} from 'match-sorter';
@@ -51,21 +51,24 @@ const useStyles = makeStyles((theme) => ({
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '20ch',
-            '&:focus': {
-                width: '30ch',
-            },
-        },
+        width: '30ch',
     },
+    paper: {
+        backgroundColor: 'yellow',
+        position: 'relative',
+        top: '5px'
+    }
 }));
 
+function CustomPaper(props) {
+    const paperClass = useStyles().paper;
+    return <Paper elevation={2} {...props} className={paperClass}/>
+}
 
 function Header(props) {
     const classes = useStyles();
 
-    const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'}];
+    const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'},];
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
 
     return (
@@ -93,7 +96,9 @@ function Header(props) {
                             }
                             options={options}
                             getOptionLabel={option => option.name}
+                            noOptionsText="საგანი ვერ მოიძებნა..."
                             filterOptions={filterOptions}
+                            PaperComponent={CustomPaper}
                         />
                     </div>
                 </Toolbar>

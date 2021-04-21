@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
+    "autosuggest-highlight": "^3.1.1",
     "match-sorter": "^6.3.0",
     "nanoid": "^3.1.20",
     "react": "^17.0.1",
