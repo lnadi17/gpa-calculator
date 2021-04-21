@@ -1,9 +1,10 @@
 import React from 'react';
-import {AppBar, fade, InputBase, Paper, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, fade, InputBase, Paper, Switch, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search"
 import {matchSorter} from 'match-sorter';
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import useSwitchStyles from "./SwitchStyles";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        marginLeft: theme.spacing(1),
+        // marginLeft: theme.spacing(1),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             width: 'auto',
@@ -82,6 +83,7 @@ function Header(props) {
 
     const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'},];
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
+    const switchStyles = useSwitchStyles();
 
     return (
         <div className={classes.root}>
@@ -95,6 +97,9 @@ function Header(props) {
                             3.99
                         </Typography>
                     </Paper>
+                    <Switch
+                        classes={switchStyles}
+                    />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon/>
