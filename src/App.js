@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from './Card';
 import {nanoid} from 'nanoid';
 import Button from '@material-ui/core/Button';
@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import {makeStyles} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
+import calculateGpa from "./Calculator";
 
 const useStyles = makeStyles(theme => ({
     addButton: {
@@ -37,6 +38,13 @@ function App() {
 
     const [cards, setCards] = useState(cardsDefault);
     const [cardAdded, setCardAdded] = useState(false);
+    const [gpaText, setGpaText] = useState('4.00');
+    // endregion
+
+    // region Effects
+        useEffect(() => {
+            setGpaText(calculateGpa(cards));
+        }, [cards])
     // endregion
 
     // region Animation
@@ -156,7 +164,7 @@ function App() {
 
     return (
         <div className="app">
-            <Header searchChangeHandler={searchChangeHandler}/>
+            <Header searchChangeHandler={searchChangeHandler} gpaText={gpaText}/>
             <Box className="cards" m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">

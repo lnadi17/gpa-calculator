@@ -96,7 +96,7 @@ function Header(props) {
                     </Typography>
                     <Paper className={classes.gpaPaper}>
                         <Typography className={classes.gpaText} align='center'>
-                            3.99
+                            {props.gpaText}
                         </Typography>
                     </Paper>
                     <Switch
