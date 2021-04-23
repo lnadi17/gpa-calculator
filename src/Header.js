@@ -20,12 +20,13 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         backgroundColor: fade(theme.palette.common.white, 0.25)
     },
-    gpaText: {
+    gpaText: props => ({
         fontWeight: '700',
         fontSize: '1.4rem',
         paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1)
-    },
+        paddingRight: theme.spacing(1),
+        color: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main
+    }),
     title: {
         flexGrow: 1,
         display: 'none',
@@ -85,7 +86,7 @@ function CustomPaper(props) {
 }
 
 function Header(props) {
-    const classes = useStyles();
+    const classes = useStyles(props);
 
     const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'},];
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});

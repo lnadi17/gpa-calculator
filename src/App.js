@@ -11,20 +11,18 @@ import Header from "./Header";
 import calculateGpa from "./Calculator";
 
 const useStyles = makeStyles(theme => ({
-    shit: {
-        backgroundColor: theme.palette.background.default
-    },
     box: {
         backgroundColor: theme.palette.background.default
     },
-    addButton: {},
+    addButton: props => ({
+        backgroundColor: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main,
+        '&:hover': {
+            backgroundColor: props.isFreeuni ? theme.palette.freeuni.light : theme.palette.agruni.light
+        }
+    }),
 }));
 
 function App() {
-    // region Styles
-    const classes = useStyles();
-    // endregion
-
     // region States
     const cardsDefault = [
         {
@@ -43,7 +41,11 @@ function App() {
     const [cards, setCards] = useState(cardsDefault);
     const [cardAdded, setCardAdded] = useState(false);
     const [gpaText, setGpaText] = useState('4.00');
-    const [isFreeuni, setIsFreeuni] = useState(false);
+    const [isFreeuni, setIsFreeuni] = useState(true);
+    // endregion
+
+    // region Styles
+    const classes = useStyles({isFreeuni: isFreeuni});
     // endregion
 
     // region Effects
@@ -132,6 +134,7 @@ function App() {
                                       subjectCredits={card.subjectCredits}
                                       setSubjectCredits={newValue => updateCardField(index, "subjectCredits", newValue)}
                                       subjectMark={card.subjectMark}
+                                      isFreeuni={isFreeuni}
                                       setSubjectMark={newValue => updateCardField(index, "subjectMark", newValue)}
                                       removeButtonHandler={() => removeButtonHandler(card.id)}/>
                     )}
@@ -172,9 +175,9 @@ function App() {
     // endregion
 
     return (
-        <div className={classes.shit}>
+        <div>
             <Header switchChangeHandler={switchChangeHandler} searchChangeHandler={searchChangeHandler}
-                    gpaText={gpaText}/>
+                    gpaText={gpaText} isFreeuni={isFreeuni}/>
             <Box className={classes.box} m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">

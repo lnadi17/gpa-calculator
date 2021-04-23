@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
         },
         margin: 'auto',
         textAlign: "left",
-        // maxWidth: "400px"
     },
     cardHeader: {
         padding: 0,
@@ -46,21 +45,28 @@ const useStyles = makeStyles(theme => ({
     credits: {
         [theme.breakpoints.up('md')]: {
             width: '50%'
-        }
+        },
     },
-    // name: {
-    // },
+    name: {
+        //
+    },
     mark: {
         [theme.breakpoints.up('md')]: {
             width: '50%',
             marginLeft: '0.15cm',
             marginRight: '0.15cm'
         },
-    }
+    },
+    icon: props => ({
+        color: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main,
+        '&:hover': {
+            color: props.isFreeuni ? theme.palette.freeuni.light : theme.palette.agruni.light
+        }
+    })
 }));
 
 function Card(props) {
-    const classes = useStyles();
+    const classes = useStyles(props);
 
     const changeHandler = (event, stateChanger, digitsOnly) => {
         if (!digitsOnly || /^\d+$/.test(event.target.value) || event.target.value === '') {
@@ -82,6 +88,7 @@ function Card(props) {
                     className={classes.cardHeader}
                     action={
                         <IconButton variant="contained"
+                                    className={classes.icon}
                                     onClick={() => props.removeButtonHandler()}>
                             <DeleteIcon/>
                         </IconButton>
@@ -90,7 +97,8 @@ function Card(props) {
                 <MaterialCardContent className={classes.cardContent}>
                     <EditableText label="საგნის დასახელება"
                                   text={props.subjectName}
-                                  // className={classes.name}
+                                  className={classes.name}
+                                  isFreeuni={props.isFreeuni}
                                   changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
                     {/*<EditableText className="subject-mark"*/}
                     {/*              label="მიღებული ქულა"*/}
@@ -99,10 +107,13 @@ function Card(props) {
                     <SelectableText label="მიღებული ქულა"
                                     className={classes.mark}
                                     text={props.subjectMark}
+                                    isFreeuni={props.isFreeuni}
                                     changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
                     <EditableText label="კრედიტების რაოდენობა"
                                   text={props.subjectCredits}
                                   className={classes.credits}
+                                  isFreeuni={props.isFreeuni}
+                                  digitsOnly={true}
                                   changeHandler={(e) => changeHandler(e, props.setSubjectCredits, true)}/>
                 </MaterialCardContent>
             </MaterialCard>
