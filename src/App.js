@@ -5,15 +5,19 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import {useTransition, animated} from 'react-spring';
 import Box from '@material-ui/core/Box';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles, MuiThemeProvider} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
 import calculateGpa from "./Calculator";
 
 const useStyles = makeStyles(theme => ({
-    addButton: {
-        //
+    shit: {
+        backgroundColor: theme.palette.background.default
     },
+    box: {
+        backgroundColor: theme.palette.background.default
+    },
+    addButton: {},
 }));
 
 function App() {
@@ -39,12 +43,13 @@ function App() {
     const [cards, setCards] = useState(cardsDefault);
     const [cardAdded, setCardAdded] = useState(false);
     const [gpaText, setGpaText] = useState('4.00');
+    const [isFreeuni, setIsFreeuni] = useState(false);
     // endregion
 
     // region Effects
-        useEffect(() => {
-            setGpaText(calculateGpa(cards));
-        }, [cards])
+    useEffect(() => {
+        setGpaText(calculateGpa(cards));
+    }, [cards])
     // endregion
 
     // region Animation
@@ -64,6 +69,10 @@ function App() {
     // endregion
 
     // region Helper Functions
+    const switchChangeHandler = (event) => {
+        setIsFreeuni(!isFreeuni);
+    }
+
     const updateCardField = (index, key, value) => {
         const cardsCopy = cards.slice();
         cardsCopy[index] = {...cards[index], [key]: value};
@@ -163,9 +172,10 @@ function App() {
     // endregion
 
     return (
-        <div className="app">
-            <Header searchChangeHandler={searchChangeHandler} gpaText={gpaText}/>
-            <Box className="cards" m="5%" mt="80px" textAlign="center">
+        <div className={classes.shit}>
+            <Header switchChangeHandler={switchChangeHandler} searchChangeHandler={searchChangeHandler}
+                    gpaText={gpaText}/>
+            <Box className={classes.box} m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">
                         {(provided, snapshot) => (

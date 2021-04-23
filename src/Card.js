@@ -11,16 +11,14 @@ const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column",
+        backgroundColor: theme.palette.background.paper,
         [theme.breakpoints.up('xs')]: {
-            backgroundColor: theme.palette.primary.main,
             width: "75%"
         },
         [theme.breakpoints.up('md')]: {
-            backgroundColor: theme.palette.primary.main,
             width: "100%"
         },
         [theme.breakpoints.down('xs')]: {
-            backgroundColor: theme.palette.secondary.main,
             width: "100%",
             maxWidth: "400px"
         },

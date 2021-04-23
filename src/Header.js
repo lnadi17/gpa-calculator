@@ -10,11 +10,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
+    appBar: {
+        backgroundColor: theme.palette.background.paper
+    },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     gpaPaper: {
-        height: '100%'
+        height: '100%',
+        backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     gpaText: {
         fontWeight: '700',
@@ -69,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     paper: {
-        backgroundColor: 'yellow',
+        backgroundColor: theme.palette.background.default,
         position: 'relative',
         top: '5px'
     }
@@ -89,7 +93,7 @@ function Header(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar>
+            <AppBar className={classes.appBar}>
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
                         GPA Calculator
@@ -101,6 +105,8 @@ function Header(props) {
                     </Paper>
                     <Switch
                         classes={switchStyles}
+                        onChange={props.switchChangeHandler}
+                        // value={props.switchValue}
                     />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>

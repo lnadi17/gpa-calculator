@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
     menuItems: {
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.background.default
     }
 }));
 
