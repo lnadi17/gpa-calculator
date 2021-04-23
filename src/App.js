@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import {useTransition, animated} from 'react-spring';
 import Box from '@material-ui/core/Box';
-import {makeStyles, MuiThemeProvider} from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
 import calculateGpa from "./Calculator";

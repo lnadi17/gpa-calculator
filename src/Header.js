@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.4rem',
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
-        color: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main
+        color: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main,
+        textShadow: '1px 1px #000000;'
     }),
     title: {
         flexGrow: 1,
