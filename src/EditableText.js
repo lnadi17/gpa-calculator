@@ -32,31 +32,10 @@ const useStyles = makeStyles(theme => ({
         //     borderColor: `${fade(theme.palette.freeuni.light, 0.2)} !important`
         // }
     },
-    formLabelRoot: {
-        '&$formLabelFocused': {
-            color: 'yellow'
-        },
-    },
-    formLabelFocused: {
-        // color: 'green'
-    }
 }));
 
-const formLabelClass = {
-    formLabelRoot: {
-        '&$formLabelFocused': {
-            color: 'yellow'
-        },
-    },
-    formLabelFocused: {
-        // color: 'green'
-    }
-};
-
 function EditableText(props) {
-    // console.log(props.isFreeuni);
     const classes = useStyles(props);
-    console.log(formLabelClass);
     const keyPressHandler = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();

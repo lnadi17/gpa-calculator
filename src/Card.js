@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Card(props) {
+    console.log("Updating card");
     const classes = useStyles(props);
 
     const changeHandler = (event, stateChanger, digitsOnly) => {

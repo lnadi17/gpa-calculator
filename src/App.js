@@ -10,6 +10,8 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
 import calculateGpa from "./Calculator";
 
+const AnimatedCard = animated(Card);
+
 const useStyles = makeStyles(theme => ({
     box: {
         backgroundColor: theme.palette.background.default
@@ -55,7 +57,6 @@ function App() {
     // endregion
 
     // region Animation
-    const AnimatedCard = animated(Card);
     const cardsTransition = useTransition(cards, {
         leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
         enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
@@ -71,7 +72,7 @@ function App() {
     // endregion
 
     // region Helper Functions
-    const switchChangeHandler = (event) => {
+    const switchChangeHandler = () => {
         setIsFreeuni(!isFreeuni);
     }
 
@@ -126,7 +127,7 @@ function App() {
         return cardsTransition((values, card, state, index) => {
             return (
                 <Draggable key={card.id} draggableId={card.id} index={index}>
-                    {(provided, snapshot) => (
+                    {(provided) => (
                         <AnimatedCard style={values}
                                       provided={provided}
                                       subjectName={card.subjectName}
@@ -181,7 +182,7 @@ function App() {
             <Box className={classes.box} m="5%" mt="80px" textAlign="center">
                 <DragDropContext onDragEnd={onDragEndHandler}>
                     <Droppable droppableId="droppable">
-                        {(provided, snapshot) => (
+                        {(provided) => (
                             <div {...provided.droppableProps}
                                  ref={provided.innerRef}
                             >

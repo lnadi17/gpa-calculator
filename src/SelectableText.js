@@ -1,6 +1,5 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-// import {Typography} from "@material-ui/core";
 import MenuItem from '@material-ui/core/MenuItem';
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -31,12 +30,6 @@ const useStyles = makeStyles(theme => ({
     }),
     cssOutlinedInput: {
         height: 'calc(100% - 1px)',
-        // "&$cssFocused $notchedOutline": {
-        //     borderColor: `${theme.palette.freeuni.light} !important`
-        // },
-        // "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
-        //     borderColor: `${theme.palette.freeuni.light} !important`
-        // }
     },
 }));
 
