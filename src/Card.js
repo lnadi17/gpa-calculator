@@ -4,10 +4,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MaterialCard from '@material-ui/core/Card';
 import MaterialCardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import {makeStyles} from '@material-ui/core/styles';
 import SelectableText from "./SelectableText";
+import React from 'react';
+import {withStyles} from "@material-ui/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = (theme) => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -63,63 +64,72 @@ const useStyles = makeStyles(theme => ({
             color: props.isFreeuni ? theme.palette.freeuni.light : theme.palette.agruni.light
         }
     })
-}));
+});
 
-function Card(props) {
-    console.log("Updating card");
-    const classes = useStyles(props);
-
-    const changeHandler = (event, stateChanger, digitsOnly) => {
+class Card extends React.Component {
+    changeHandler = (event, stateChanger, digitsOnly) => {
         if (!digitsOnly || /^\d+$/.test(event.target.value) || event.target.value === '') {
             stateChanger(event.target.value);
         }
     }
 
-    // Hack to animate margin size
-    const marginStyle = (({marginBottom}) => ({marginBottom}))(props.style);
-    // Hack to make header unfocusable by pressing tab key
-    props.provided.dragHandleProps.tabIndex = -1;
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return (
+            JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style) ||
+            this.props.provided !== nextProps.provided ||
+            this.props.subjectName !== nextProps.subjectName ||
+            this.props.subjectCredits !== nextProps.subjectCredits ||
+            this.props.subjectMark !== nextProps.subjectMark ||
+            this.props.isFreeuni !== nextProps.isFreeuni
+        );
+    }
 
-    return (
-        <div {...props.provided.draggableProps} ref={props.provided.innerRef}
-             style={{...props.provided.draggableProps.style, ...marginStyle}}>
-            <MaterialCard className={classes.root} elevation={5} style={props.style}>
-                <CardHeader
-                    {...props.provided.dragHandleProps}
-                    className={classes.cardHeader}
-                    action={
-                        <IconButton variant="contained"
-                                    className={classes.icon}
-                                    onClick={() => props.removeButtonHandler()}>
-                            <DeleteIcon/>
-                        </IconButton>
-                    }
-                />
-                <MaterialCardContent className={classes.cardContent}>
-                    <EditableText label="საგნის დასახელება"
-                                  text={props.subjectName}
-                                  className={classes.name}
-                                  isFreeuni={props.isFreeuni}
-                                  changeHandler={(e) => changeHandler(e, props.setSubjectName)}/>
-                    {/*<EditableText className="subject-mark"*/}
-                    {/*              label="მიღებული ქულა"*/}
-                    {/*              text={props.subjectMark}*/}
-                    {/*              changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>*/}
-                    <SelectableText label="მიღებული ქულა"
-                                    className={classes.mark}
-                                    text={props.subjectMark}
-                                    isFreeuni={props.isFreeuni}
-                                    changeHandler={(e) => changeHandler(e, props.setSubjectMark)}/>
-                    <EditableText label="კრედიტების რაოდენობა"
-                                  text={props.subjectCredits}
-                                  className={classes.credits}
-                                  isFreeuni={props.isFreeuni}
-                                  digitsOnly={true}
-                                  changeHandler={(e) => changeHandler(e, props.setSubjectCredits, true)}/>
-                </MaterialCardContent>
-            </MaterialCard>
-        </div>
-    );
+    render() {
+        const {classes} = this.props;
+
+        // Hack to animate margin size
+        const marginStyle = (({marginBottom}) => ({marginBottom}))(this.props.style);
+        // Hack to make header unfocusable by pressing tab key
+        this.props.provided.dragHandleProps.tabIndex = -1;
+
+        return (
+            <div {...this.props.provided.draggableProps} ref={this.props.provided.innerRef}
+                 style={{...this.props.provided.draggableProps.style, ...marginStyle}}>
+                <MaterialCard className={classes.root} elevation={5} style={this.props.style}>
+                    <CardHeader
+                        {...this.props.provided.dragHandleProps}
+                        className={classes.cardHeader}
+                        action={
+                            <IconButton variant="contained"
+                                        className={classes.icon}
+                                        onClick={() => this.props.removeButtonHandler()}>
+                                <DeleteIcon/>
+                            </IconButton>
+                        }
+                    />
+                    <MaterialCardContent className={classes.cardContent}>
+                        <EditableText label="საგნის დასახელება"
+                                      text={this.props.subjectName}
+                                      className={classes.name}
+                                      isFreeuni={this.props.isFreeuni}
+                                      changeHandler={(e) => this.changeHandler(e, this.props.setSubjectName)}/>
+                        <SelectableText label="მიღებული ქულა"
+                                        className={classes.mark}
+                                        text={this.props.subjectMark}
+                                        isFreeuni={this.props.isFreeuni}
+                                        changeHandler={(e) => this.changeHandler(e, this.props.setSubjectMark)}/>
+                        <EditableText label="კრედიტების რაოდენობა"
+                                      text={this.props.subjectCredits}
+                                      className={classes.credits}
+                                      isFreeuni={this.props.isFreeuni}
+                                      digitsOnly={true}
+                                      changeHandler={(e) => this.changeHandler(e, this.props.setSubjectCredits, true)}/>
+                    </MaterialCardContent>
+                </MaterialCard>
+            </div>
+        );
+    }
 }
 
-export default Card;
+export default withStyles(useStyles)(Card);
+

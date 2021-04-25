@@ -41,7 +41,6 @@ function App() {
         }]
 
     const [cards, setCards] = useState(cardsDefault);
-    const [cardAdded, setCardAdded] = useState(false);
     const [gpaText, setGpaText] = useState('4.00');
     const [isFreeuni, setIsFreeuni] = useState(true);
     // endregion
@@ -61,12 +60,6 @@ function App() {
         leave: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
         enter: {opacity: 1, maxHeight: '500px', marginBottom: 10, transform: 'scaleY(1)'},
         from: {opacity: 0, maxHeight: '0px', marginBottom: 0, transform: 'scaleY(0)'},
-        onChange: () => {
-            scrollToBottom('auto')
-        },
-        onRest: () => {
-            setCardAdded(false)
-        },
         keys: card => card.id
     });
     // endregion
@@ -106,7 +99,6 @@ function App() {
 
     const addButtonHandler = () => {
         addCard("", "", "");
-        setCardAdded(true);
     }
 
     const removeButtonHandler = (id) => {
@@ -114,9 +106,6 @@ function App() {
     }
 
     const scrollToBottom = (behavior = 'smooth') => {
-        if (!cardAdded) {
-            return;
-        }
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: behavior
