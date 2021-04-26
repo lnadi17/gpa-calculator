@@ -101,8 +101,9 @@ function Header(props) {
 
     const switchStyles = useSwitchStyles();
 
+
     useSpring({
-        number: parseFloat(props.gpaText),
+        number: props.gpaText === '' ? 0 : parseFloat(props.gpaText),
         onChange({value}) {
             setFloat(castFloat(value.number));
         }
@@ -117,7 +118,7 @@ function Header(props) {
                         GPA Calculator
                     </Typography>
                     <Paper className={classes.gpaPaper}>
-                        {props.gpaText ? (
+                        {props.gpaText !== '' ? (
                             <AnimatedTypography className={classes.gpaText} align='center'>
                                 {float}
                             </AnimatedTypography>)
