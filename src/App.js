@@ -41,7 +41,7 @@ function App() {
         }]
 
     const [cards, setCards] = useState(cardsDefault);
-    const [gpaText, setGpaText] = useState('4.00');
+    const [gpaText, setGpaText] = useState('0.00');
     const [isFreeuni, setIsFreeuni] = useState(true);
     // endregion
 

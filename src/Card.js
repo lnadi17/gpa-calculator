@@ -6,7 +6,7 @@ import MaterialCardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import SelectableText from "./SelectableText";
 import React from 'react';
-import {withStyles} from "@material-ui/styles";
+import {withStyles} from "@material-ui/core/styles";
 
 const useStyles = (theme) => ({
     root: {

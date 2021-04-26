@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {AppBar, fade, InputBase, Paper, Switch, Toolbar, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search"
 import {matchSorter} from 'match-sorter';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import useSwitchStyles from "./SwitchStyles";
+import {useSpring, animated} from "react-spring";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -86,12 +87,27 @@ function CustomPaper(props) {
     return <Paper elevation={2} {...props} className={paperClass}/>
 }
 
+const castFloat = (n) => parseFloat(n).toFixed(2);
+
+const AnimatedTypography = animated(Typography);
+
 function Header(props) {
     const classes = useStyles(props);
 
+    const [float, setFloat] = useState(castFloat(props.gpaText));
+
     const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'},];
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
+
     const switchStyles = useSwitchStyles();
+
+    useSpring({
+        number: parseFloat(props.gpaText),
+        onChange({value}) {
+            setFloat(castFloat(value.number));
+        }
+    });
+
 
     return (
         <div className={classes.root}>
@@ -101,9 +117,11 @@ function Header(props) {
                         GPA Calculator
                     </Typography>
                     <Paper className={classes.gpaPaper}>
-                        <Typography className={classes.gpaText} align='center'>
-                            {props.gpaText}
-                        </Typography>
+                        {props.gpaText ? (
+                            <AnimatedTypography className={classes.gpaText} align='center'>
+                                {float}
+                            </AnimatedTypography>)
+                            : null}
                     </Paper>
                     <Switch
                         classes={switchStyles}
