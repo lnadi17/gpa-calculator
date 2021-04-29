@@ -9,6 +9,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
 import calculateGpa from "./Calculator";
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
+import EmisDialog from "./EmisDialog";
 
 const AnimatedCard = animated(Card);
 
@@ -16,12 +19,23 @@ const useStyles = makeStyles(theme => ({
     box: {
         backgroundColor: theme.palette.background.default
     },
+    buttonsRoot: {
+        '& > *': {
+            margin: '2px',
+        }
+    },
     addButton: props => ({
         backgroundColor: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main,
         '&:hover': {
             backgroundColor: props.isFreeuni ? theme.palette.freeuni.light : theme.palette.agruni.light
         }
     }),
+    iconButton: props => ({
+        backgroundColor: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main,
+        '&:hover': {
+            backgroundColor: props.isFreeuni ? theme.palette.freeuni.light : theme.palette.agruni.light
+        }
+    })
 }));
 
 function App() {
@@ -43,6 +57,7 @@ function App() {
     const [cards, setCards] = useState(cardsDefault);
     const [gpaText, setGpaText] = useState('0.00');
     const [isFreeuni, setIsFreeuni] = useState(true);
+    const [dialogOpen, setDialogOpen] = useState(false);
     // endregion
 
     // region Styles
@@ -140,6 +155,12 @@ function App() {
         addCard(value.name, 7, 'A', true);
     }
 
+    const onSubmitHandler = (result) => {
+        // Parse and fill
+        console.log(result);
+        setDialogOpen(false);
+    }
+
     const onDragEndHandler = (result) => {
         // Dropped outside the list
         if (!result.destination) {
@@ -181,9 +202,25 @@ function App() {
                         )}
                     </Droppable>
                 </DragDropContext>
-                <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
-                        startIcon={<AddIcon/>}>საგნის დამატება</Button>
+                <Box className={classes.buttonsRoot}>
+                    <Button
+                        variant="contained"
+                        className={classes.iconButton}
+                    >
+                        <SystemUpdateAltIcon fontSize="small"/>
+                    </Button>
+                    <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
+                            startIcon={<AddIcon/>}>საგნის დამატება</Button>
+                    <Button
+                        variant="contained"
+                        className={classes.iconButton}
+                        onClick={() => setDialogOpen(true)}
+                    >
+                        <AllInclusiveIcon fontSize="small"/>
+                    </Button>
+                </Box>
             </Box>
+            <EmisDialog handleSubmit={onSubmitHandler} isFreeuni={isFreeuni} open={dialogOpen} handleClose={() => setDialogOpen(false)}/>
         </div>
     );
 }
