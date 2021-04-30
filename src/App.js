@@ -12,6 +12,8 @@ import calculateGpa from "./Calculator";
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import EmisDialog from "./EmisDialog";
+import emisParser from "./EmisParser";
+import {emisData} from "./EmisData";
 
 const AnimatedCard = animated(Card);
 
@@ -120,12 +122,12 @@ function App() {
         removeCard(id);
     }
 
-    const scrollToBottom = (behavior = 'smooth') => {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: behavior
-        });
-    }
+    // const scrollToBottom = (behavior = 'smooth') => {
+    //     window.scrollTo({
+    //         top: document.body.scrollHeight,
+    //         behavior: behavior
+    //     });
+    // }
 
     const getCards = () => {
         return cardsTransition((values, card, state, index) => {
@@ -152,12 +154,17 @@ function App() {
         if (reason === 'clear') {
             return;
         }
-        addCard(value.name, 7, 'A', true);
+        console.log(value);
+        addCard(value.name, emisData[value.name], '', false);
     }
 
     const onSubmitHandler = (result) => {
         // Parse and fill
-        console.log(result);
+        let newCards = emisParser(result);
+        if (newCards.length !== 0) {
+            newCards = newCards.map(card => ({"id": nanoid(), ...card}));
+            setCards(newCards);
+        }
         setDialogOpen(false);
     }
 

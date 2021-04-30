@@ -6,6 +6,7 @@ import {matchSorter} from 'match-sorter';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import useSwitchStyles from "./SwitchStyles";
 import {useSpring, animated} from "react-spring";
+import {emisData} from './EmisData';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,12 +92,16 @@ const castFloat = (n) => parseFloat(n).toFixed(2);
 
 const AnimatedTypography = animated(Typography);
 
+const options = Object.keys(emisData).map(key => {
+    return {name: key, credits: emisData[key]}
+})
+
 function Header(props) {
+    console.log(options);
     const classes = useStyles(props);
 
     const [float, setFloat] = useState(castFloat(props.gpaText));
 
-    const options = [{name: 'აზმათი'}, {name: 'ლიტხელი'},];
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
 
     const switchStyles = useSwitchStyles();
@@ -119,15 +124,14 @@ function Header(props) {
                     </Typography>
                     <Paper className={classes.gpaPaper}>
                         {props.gpaText !== '' ? (
-                            <AnimatedTypography className={classes.gpaText} align='center'>
-                                {float}
-                            </AnimatedTypography>)
+                                <AnimatedTypography className={classes.gpaText} align='center'>
+                                    {float}
+                                </AnimatedTypography>)
                             : null}
                     </Paper>
                     <Switch
                         classes={switchStyles}
                         onChange={props.switchChangeHandler}
-                        // value={props.switchValue}
                     />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
