@@ -1,7 +1,9 @@
-import {emisData} from "./EmisData";
+import {freeuniData, agruniData} from "./EmisData";
 
-function convertEmisDataIntoJson(data) {
+function convertEmisDataIntoJson(data, isFreeuni) {
     let jsonCards = [];
+
+    const emisData = isFreeuni ? freeuniData : agruniData;
 
     try {
         // This only works if the whole page is copied (as instructed)

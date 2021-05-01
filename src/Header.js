@@ -6,7 +6,7 @@ import {matchSorter} from 'match-sorter';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import useSwitchStyles from "./SwitchStyles";
 import {useSpring, animated} from "react-spring";
-import {emisData} from './EmisData';
+import {freeuniData, agruniData} from './EmisData';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -92,12 +92,15 @@ const castFloat = (n) => parseFloat(n).toFixed(2);
 
 const AnimatedTypography = animated(Typography);
 
-const options = Object.keys(emisData).map(key => {
-    return {name: key, credits: emisData[key]}
-})
+const freeuniOptions = Object.keys(freeuniData).map(key => {
+    return {name: key, credits: freeuniData[key]}
+});
+
+const agruniOptions = Object.keys(agruniData).map(key => {
+    return {name: key, credits: agruniData[key]}
+});
 
 function Header(props) {
-    console.log(options);
     const classes = useStyles(props);
 
     const [float, setFloat] = useState(castFloat(props.gpaText));
@@ -149,7 +152,7 @@ function Header(props) {
                                     }}
                                 />
                             }
-                            options={options}
+                            options={props.isFreeuni ? freeuniOptions : agruniOptions}
                             getOptionLabel={option => option.name}
                             getOptionSelected={(option, value) => {
                                 return option.name === value.name

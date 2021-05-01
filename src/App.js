@@ -13,7 +13,7 @@ import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import EmisDialog from "./EmisDialog";
 import emisParser from "./EmisParser";
-import {emisData} from "./EmisData";
+import {freeuniData, agruniData} from "./EmisData";
 
 const AnimatedCard = animated(Card);
 
@@ -155,12 +155,12 @@ function App() {
             return;
         }
         console.log(value);
-        addCard(value.name, emisData[value.name], '', false);
+        addCard(value.name, isFreeuni ? freeuniData[value.name] : agruniData[value.name], '', false);
     }
 
     const onSubmitHandler = (result) => {
         // Parse and fill
-        let newCards = emisParser(result);
+        let newCards = emisParser(result, isFreeuni);
         if (newCards.length !== 0) {
             newCards = newCards.map(card => ({"id": nanoid(), ...card}));
             setCards(newCards);
@@ -181,6 +181,16 @@ function App() {
         );
 
         setCards(newCards);
+    }
+
+    const onDownloadClickHandler = () => {
+        const csv = cards.map(card => [card.subjectName, card.subjectMark, card.subjectCredits].join(',')).join('\n');
+        const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+        const url = URL.createObjectURL(blob);
+        const pom = document.createElement('a');
+        pom.href = url;
+        pom.setAttribute('download', 'results.csv');
+        pom.click();
     }
 
     // A little function to help us with reordering the result
@@ -213,6 +223,7 @@ function App() {
                     <Button
                         variant="contained"
                         className={classes.iconButton}
+                        onClick={onDownloadClickHandler}
                     >
                         <SystemUpdateAltIcon fontSize="small"/>
                     </Button>
@@ -227,7 +238,8 @@ function App() {
                     </Button>
                 </Box>
             </Box>
-            <EmisDialog handleSubmit={onSubmitHandler} isFreeuni={isFreeuni} open={dialogOpen} handleClose={() => setDialogOpen(false)}/>
+            <EmisDialog handleSubmit={onSubmitHandler} isFreeuni={isFreeuni} open={dialogOpen}
+                        handleClose={() => setDialogOpen(false)}/>
         </div>
     );
 }
