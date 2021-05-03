@@ -16,6 +16,7 @@ import emisParser from "./EmisParser";
 import {agruniData, freeuniData} from "./EmisData";
 import {saveAs} from 'file-saver';
 import XLSX from 'xlsx';
+import {Tooltip, Zoom} from "@material-ui/core";
 
 const AnimatedCard = animated(Card);
 
@@ -163,7 +164,6 @@ function App() {
         if (reason === 'clear') {
             return;
         }
-        console.log(value);
         addCard(value.name, isFreeuni ? freeuniData[value.name] : agruniData[value.name], '', false);
     }
 
@@ -235,22 +235,26 @@ function App() {
                     </Droppable>
                 </DragDropContext>
                 <Box className={classes.buttonsRoot}>
-                    <Button
-                        variant="contained"
-                        className={classes.iconButton}
-                        onClick={onDownloadClickHandler}
-                    >
-                        <SystemUpdateAltIcon fontSize="small"/>
-                    </Button>
+                    <Tooltip title="ექსელში დაექსპორტება" enterDelay={500} TransitionComponent={Zoom} arrow>
+                        <Button
+                            variant="contained"
+                            className={classes.iconButton}
+                            onClick={onDownloadClickHandler}
+                        >
+                            <SystemUpdateAltIcon fontSize="small"/>
+                        </Button>
+                    </Tooltip>
                     <Button variant="contained" className={classes.addButton} onClick={() => addButtonHandler()}
                             startIcon={<AddIcon/>}>საგნის დამატება</Button>
-                    <Button
-                        variant="contained"
-                        className={classes.iconButton}
-                        onClick={() => setDialogOpen(true)}
-                    >
-                        <AllInclusiveIcon fontSize="small"/>
-                    </Button>
+                    <Tooltip title="ნიშნების დაიმპორტება" enterDelay={500} TransitionComponent={Zoom} arrow>
+                        <Button
+                            variant="contained"
+                            className={classes.iconButton}
+                            onClick={() => setDialogOpen(true)}
+                        >
+                            <AllInclusiveIcon fontSize="small"/>
+                        </Button>
+                    </Tooltip>
                 </Box>
             </Box>
             <EmisDialog handleSubmit={onSubmitHandler} isFreeuni={isFreeuni} open={dialogOpen}

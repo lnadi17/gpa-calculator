@@ -6,7 +6,6 @@ function convertEmisDataIntoJson(data, isFreeuni) {
     const emisData = isFreeuni ? freeuniData : agruniData;
 
     try {
-        // This only works if the whole page is copied (as instructed)
         let scoreTable = data.split(/[\t\n]/);
         scoreTable.forEach((value, index) => {
             Object.keys(emisData).forEach((subject) => {
