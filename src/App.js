@@ -3,7 +3,7 @@ import Card from './Card';
 import {nanoid} from 'nanoid';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import {useTransition, animated} from 'react-spring';
+import {animated, useTransition} from 'react-spring';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from "@material-ui/core/styles";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
@@ -13,7 +13,7 @@ import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import EmisDialog from "./EmisDialog";
 import emisParser from "./EmisParser";
-import {freeuniData, agruniData} from "./EmisData";
+import {agruniData, freeuniData} from "./EmisData";
 import {saveAs} from 'file-saver';
 import XLSX from 'xlsx';
 
@@ -41,6 +41,13 @@ const useStyles = makeStyles(theme => ({
         }
     })
 }));
+
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+}
 
 function App() {
     // region States
@@ -186,27 +193,18 @@ function App() {
     }
 
     const onDownloadClickHandler = () => {
-        // const csv = cards.map(card => [card.subjectName, card.subjectMark, card.subjectCredits].join(',')).join('\n');
-        const rows = cards.map(card => [card.subjectName, card.subjectMark, card.subjectName]);
+        const rows = cards.map(card => [card.subjectName, card.subjectMark, card.subjectCredits]);
         let wb = XLSX.utils.book_new();
         wb.Props = {
             Author: "Dante from Devil May Cry series"
         };
-        wb.SheetNames.push("Test")
-        let ws_data = [['hello', 'world']];
-        let ws = XLSX.utils.aoa_to_sheet(ws_data);
-        wb.Sheets["Test"] = ws;
+        wb.SheetNames.push("Scores")
+        let ws = XLSX.utils.aoa_to_sheet(rows);
+        ws['!cols'] = [{wch: 40}, {wch: 10}, {wch: 10}];
+        wb.Sheets["Scores"] = ws;
 
-        let wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
-
-        function s2ab(s) {
-            var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-            var view = new Uint8Array(buf);  //create uint8array as viewer
-            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-            return buf;
-        }
-
-        saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), 'test.xlsx');
+        let wbOut = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+        saveAs(new Blob([s2ab(wbOut)], {type: "application/octet-stream;charset=UTF-8"}), 'test.xlsx');
     }
 
 
