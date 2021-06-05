@@ -93,11 +93,11 @@ const castFloat = (n) => parseFloat(n).toFixed(2);
 const AnimatedTypography = animated(Typography);
 
 const freeuniOptions = Object.keys(freeuniData).map(key => {
-    return {name: freeuniData[key].name, credits: freeuniData[key].credits}
+    return {name: key, credits: freeuniData[key]}
 });
 
 const agruniOptions = Object.keys(agruniData).map(key => {
-    return {name: agruniData[key].name, credits: agruniData[key].credits}
+    return {name: key, credits: agruniData[key]}
 });
 
 function Header(props) {
@@ -108,6 +108,7 @@ function Header(props) {
     const filterOptions = (options, {inputValue}) => matchSorter(options, inputValue, {keys: ['name']});
 
     const switchStyles = useSwitchStyles();
+
 
     useSpring({
         number: props.gpaText === '' ? 0 : parseFloat(props.gpaText),

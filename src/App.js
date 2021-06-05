@@ -13,6 +13,7 @@ import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import EmisDialog from "./EmisDialog";
 import emisParser from "./EmisParser";
+import {agruniData, freeuniData} from "./EmisData";
 import {saveAs} from 'file-saver';
 import XLSX from 'xlsx';
 import {Tooltip, Zoom} from "@material-ui/core";
@@ -163,7 +164,7 @@ function App() {
         if (reason === 'clear') {
             return;
         }
-        addCard(value.name, isFreeuni ? value.credits : value.credits, '', false);
+        addCard(value.name, isFreeuni ? freeuniData[value.name] : agruniData[value.name], '', false);
     }
 
     const onSubmitHandler = (result) => {
