@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "8adcb3e3-6e6c-4346-bf6f-3fab86d204e2",
+		"name": "Default Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get subjects",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36 OPR/75.0.3969.243"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "Origin",
+						"value": "https://emis.freeuni.edu.ge"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "Referer",
+						"value": "https://emis.freeuni.edu.ge/index.php?material=ok&mode=freearch_archevitoba"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Cookie",
+						"value": "PHPSESSID=fdfiepejgmj8jd45tifapmsn8n; userid=20326; userName=+; userType=student; _ga=GA1.3.1805109473.1612026681; __utmc=163933544; __utma=163933544.1805109473.1612026681.1619046941.1619818518.5; __utmz=163933544.1619818518.5.3.utmcsr=l.facebook.com|utmccn=(referral)|utmcmd=referral|utmcct=/; _gid=GA1.3.1599871650.1619958102; _gat=1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"tabName\":\"choosed\",\"pageParams\":{\"total\":500,\"current\":1,\"per_page\":500,\"paging_show\":false},\"filterParams\":{\"book_name\":\"\"}}"
+				},
+				"url": {
+					"raw": "https://emis.freeuni.edu.ge/index.php?material=ok&mode=freearch_archevitoba&sub=getProgramData",
+					"protocol": "https",
+					"host": [
+						"emis",
+						"freeuni",
+						"edu",
+						"ge"
+					],
+					"path": [
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "material",
+							"value": "ok"
+						},
+						{
+							"key": "mode",
+							"value": "freearch_archevitoba"
+						},
+						{
+							"key": "sub",
+							"value": "getProgramData"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
