@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
         // "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
         //     borderColor: `${fade(theme.palette.freeuni.light, 0.2)} !important`
         // }
+        height: '100%'
     },
 }));
 
