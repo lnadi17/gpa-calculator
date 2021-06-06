@@ -8,15 +8,13 @@ function convertEmisDataIntoJson(data, isFreeuni) {
     try {
         let scoreTable = data.split(/[\t\n]/);
         scoreTable.forEach((value, index) => {
-            Object.keys(emisData).forEach((subject) => {
-                if (value.replace(/\s+/g, '') === subject.replace(/\s+/g, '')) {
-                    let jsonCard = {};
-                    value ? jsonCard.subjectName = subject : jsonCard.subjectName = "";
-                    scoreTable[index + 3] ? jsonCard.subjectMark = scoreTable[index + 3] : jsonCard.subjectMark = "";
-                    scoreTable[index + 5] ? jsonCard.subjectCredits = scoreTable[index + 5] : jsonCard.subjectCredits = "";
-                    jsonCards.push(jsonCard);
-                }
-            });
+            if (value.match(/[A-Z]+[0-9]{6}/)) {
+                let jsonCard = {};
+                scoreTable[index + 1] ? jsonCard.subjectName = scoreTable[index + 1] : jsonCard.subjectName = "";
+                scoreTable[index + 4] ? jsonCard.subjectMark = scoreTable[index + 4] : jsonCard.subjectMark = "";
+                scoreTable[index + 6] ? jsonCard.subjectCredits = scoreTable[index + 6] : jsonCard.subjectCredits = "";
+                jsonCards.push(jsonCard);
+            }
         });
 
         return jsonCards.filter(card => ["A", "B", "C", "D", "E", "F"].includes(card.subjectMark));
