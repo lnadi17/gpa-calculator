@@ -55,16 +55,23 @@ function App() {
     const cardsDefault = [
         {
             "id": nanoid(),
-            "subjectName": "აზროვნების მათემატიკური წესი",
+            "subjectName": "ფილოსოფია",
+            "subjectMark": "F",
+            "subjectCredits": "4"
+        },
+        {
+            "id": nanoid(),
+            "subjectName": "ლოგიკა",
             "subjectMark": "A",
-            "subjectCredits": "7"
+            "subjectCredits": "4"
         },
         {
             "id": nanoid(),
             "subjectName": "ლიტერატურა და ხელოვნება",
             "subjectMark": "B",
             "subjectCredits": "5"
-        }]
+        },
+    ]
 
     const [cards, setCards] = useState(cardsDefault);
     const [gpaText, setGpaText] = useState('0.00');

@@ -8,4 +8,5 @@ let output = {};
 jsonParsed.forEach((item, index) => {
     output[item.book_name.split('(')[0].split(/\s+/g).join(' ').trim()] = parseInt(item.credit);
 });
+
 console.log(output);

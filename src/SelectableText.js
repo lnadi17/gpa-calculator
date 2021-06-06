@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
         color: props.isFreeuni ? theme.palette.freeuni.main : theme.palette.agruni.main
     }),
     cssOutlinedInput: {
-        height: 'calc(100% - 1px)',
+        height: '100%',
     },
 }));
 

@@ -1,9 +1,5 @@
-import {freeuniData, agruniData} from "./EmisData";
-
-function convertEmisDataIntoJson(data, isFreeuni) {
+function convertEmisDataIntoJson(data) {
     let jsonCards = [];
-
-    const emisData = isFreeuni ? freeuniData : agruniData;
 
     try {
         let scoreTable = data.split(/[\t\n]/);
@@ -19,7 +15,7 @@ function convertEmisDataIntoJson(data, isFreeuni) {
 
         return jsonCards.filter(card => ["A", "B", "C", "D", "E", "F"].includes(card.subjectMark));
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         return null;
     }
 }
