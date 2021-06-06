@@ -2,7 +2,7 @@ const fs = require('fs');
 
 let jsonObject = {};
 
-const data = fs.readFileSync('data.txt', 'utf8');
+const data = fs.readFileSync('data_agr.txt', 'utf8');
 let jsonParsed = JSON.parse(data).items.list;
 let output = {};
 jsonParsed.forEach((item, index) => {
