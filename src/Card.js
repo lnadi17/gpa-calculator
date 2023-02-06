@@ -1,12 +1,12 @@
 import EditableText from "./EditableText";
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import MaterialCard from '@material-ui/core/Card';
-import MaterialCardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import MaterialCard from '@mui/material/Card';
+import MaterialCardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import SelectableText from "./SelectableText";
 import React from 'react';
-import {withStyles} from "@material-ui/core/styles";
+import withStyles from '@mui/styles/withStyles';
 
 const useStyles = (theme) => ({
     root: {
@@ -19,7 +19,7 @@ const useStyles = (theme) => ({
         [theme.breakpoints.up('md')]: {
             width: "100%"
         },
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             width: "100%",
             maxWidth: "400px"
         },
@@ -34,7 +34,7 @@ const useStyles = (theme) => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
         },
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             display: 'block'
         },
         padding: "8px",
@@ -100,9 +100,11 @@ class Card extends React.Component {
                         {...this.props.provided.dragHandleProps}
                         className={classes.cardHeader}
                         action={
-                            <IconButton variant="contained"
-                                        className={classes.icon}
-                                        onClick={() => this.props.removeButtonHandler()}>
+                            <IconButton
+                                variant="contained"
+                                className={classes.icon}
+                                onClick={() => this.props.removeButtonHandler()}
+                                size="large">
                                 <DeleteIcon/>
                             </IconButton>
                         }

@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import Card from './Card';
 import {nanoid} from 'nanoid';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 import {animated, useTransition} from 'react-spring';
-import Box from '@material-ui/core/Box';
-import {makeStyles} from "@material-ui/core/styles";
+import Box from '@mui/material/Box';
+import makeStyles from '@mui/styles/makeStyles';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Header from "./Header";
 import calculateGpa from "./Calculator";
-import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
-import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import EmisDialog from "./EmisDialog";
 import emisParser from "./EmisParser";
 import {agruniData, freeuniData} from "./EmisData";
 import {saveAs} from 'file-saver';
 // import XLSX from 'xlsx';
-import {Tooltip, Zoom} from "@material-ui/core";
+import {Tooltip, Zoom} from "@mui/material";
 
 const AnimatedCard = animated(Card);
 

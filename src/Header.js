@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {AppBar, fade, InputBase, Paper, Switch, Toolbar, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import SearchIcon from "@material-ui/icons/Search"
+import {AppBar, alpha, InputBase, Paper, Switch, Toolbar, Typography} from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import SearchIcon from "@mui/icons-material/Search"
 import {matchSorter} from 'match-sorter';
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete from '@mui/material/Autocomplete';
 import useSwitchStyles from "./SwitchStyles";
 import {useSpring, animated} from "react-spring";
 import {freeuniData, agruniData} from './EmisData';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gpaPaper: {
         height: '100%',
-        backgroundColor: fade(theme.palette.common.white, 0.25)
+        backgroundColor: alpha(theme.palette.common.white, 0.25)
     },
     gpaText: props => ({
         fontWeight: '700',
@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
         '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         // marginLeft: theme.spacing(1),
         width: '100%',
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         width: '15ch',
         [theme.breakpoints.up('sm')]: {
             width: '20ch',
@@ -154,7 +154,7 @@ function Header(props) {
                             }
                             options={props.isFreeuni ? freeuniOptions : agruniOptions}
                             getOptionLabel={option => option.name}
-                            getOptionSelected={(option, value) => {
+                            isOptionEqualToValue={(option, value) => {
                                 return option.name === value.name
                             }}
                             noOptionsText="საგანი ვერ მოიძებნა..."

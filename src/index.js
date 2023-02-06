@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from "./App";
-import {CssBaseline} from "@material-ui/core";
-import {MuiThemeProvider} from "@material-ui/core/styles";
+import {CssBaseline} from "@mui/material";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import darkTheme from "./CustomTheme";
 // import App from "./DragAndDrop";
 
 ReactDOM.render(
     <React.StrictMode>
-        <MuiThemeProvider theme={darkTheme}>
-            <CssBaseline/>
-            <App/>
-        </MuiThemeProvider>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={darkTheme}>
+                <CssBaseline/>
+                <App/>
+            </ThemeProvider>
+        </StyledEngineProvider>
     </React.StrictMode>,
     document.getElementById('root'));
