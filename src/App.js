@@ -15,7 +15,7 @@ import EmisDialog from "./EmisDialog";
 import emisParser from "./EmisParser";
 import {agruniData, freeuniData} from "./EmisData";
 import {saveAs} from 'file-saver';
-import XLSX from 'xlsx';
+// import XLSX from 'xlsx';
 import {Tooltip, Zoom} from "@material-ui/core";
 
 const AnimatedCard = animated(Card);
@@ -200,18 +200,18 @@ function App() {
     }
 
     const onDownloadClickHandler = () => {
-        const rows = cards.map(card => [card.subjectName, card.subjectMark, card.subjectCredits]);
-        let wb = XLSX.utils.book_new();
-        wb.Props = {
-            Author: "Dante from Devil May Cry series"
-        };
-        wb.SheetNames.push("Scores")
-        let ws = XLSX.utils.aoa_to_sheet(rows);
-        ws['!cols'] = [{wch: 40}, {wch: 10}, {wch: 10}];
-        wb.Sheets["Scores"] = ws;
-
-        let wbOut = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
-        saveAs(new Blob([s2ab(wbOut)], {type: "application/octet-stream;charset=UTF-8"}), 'test.xlsx');
+        // const rows = cards.map(card => [card.subjectName, card.subjectMark, card.subjectCredits]);
+        // // let wb = XLSX.utils.book_new();
+        // wb.Props = {
+        //     Author: "Dante from Devil May Cry series"
+        // };
+        // wb.SheetNames.push("Scores")
+        // // let ws = XLSX.utils.aoa_to_sheet(rows);
+        // ws['!cols'] = [{wch: 40}, {wch: 10}, {wch: 10}];
+        // wb.Sheets["Scores"] = ws;
+        //
+        // // let wbOut = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+        // saveAs(new Blob([s2ab(wbOut)], {type: "application/octet-stream;charset=UTF-8"}), 'test.xlsx');
     }
 
 
