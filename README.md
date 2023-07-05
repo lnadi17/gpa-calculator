@@ -4,6 +4,8 @@ This project is a highly customizable GPA Calculator for Freeuni and Agruni stud
 
 Demo website is available at: [https://lnadi17.github.io/gpa-calculator/](https://lnadi17.github.io/gpa-calculator/)
 
+![Demo GIF](./demo.gif)
+
 ## Features
 
 These are the key features of the website:
@@ -13,7 +15,22 @@ These are the key features of the website:
 - Quick search functionality to locate existing subjects by name, automatically importing them with pre-filled credits
 - Ability to switch between Freeuni and Agruni to change the search results
 
-## Installation
+## Contribution
+
+This website is React-only, it has no backend. Setting up development environment is therefore very easy.
+1. Clone the repository
+2. Install dependencies using `npm install`.
+3. Start the development server using `npm start`.
+
+In the `data` folder there exists Postman Collection that was used to get the University subjects. However, only the second-semester subjects were retrieved. They reside in `EmisData.js` file and contributions to this file are very welome. Data is in a very simple format:
+```js
+export const freeuniData = {
+    'ბიოლოგია': 6,
+    'ბიზნესი მოქმედებაში I': 2,
+    'ლიდერობა და მოტივირება': 1,
+    ...
+}
+```
 
 ## Disclaimer
 This project is not affiliated with Free University or Agrarian University. Understand that the GPA calculated from this website is not official in any way and may not be accurate. It is a completely independent project, intended for educational purposes only. Use this website at your own risk.
